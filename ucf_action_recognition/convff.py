@@ -1,11 +1,7 @@
 """
-AlexNet Keras Implementation
+ConvFF2D Implementation
 """
 
-# Import necessary packages
-import argparse
-
-# Import necessary components to build LeNet
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, ZeroPadding2D
@@ -30,6 +26,7 @@ from tensorflow.python.keras.utils import generic_utils
 from tensorflow.python.keras.utils import tf_utils
 from tensorflow.python.ops import array_ops
 from tensorflow.python.util.tf_export import keras_export
+
 
 class FF(keras.layers.Layer):
 
@@ -995,77 +992,3 @@ class ConvFF2D(ConvRNN2D):
   def from_config(cls, config):
     return cls(**config)
 
-
-def alexnet_ConvFF2D(img_shape=(None, 224, 224, 3), n_classes=101, l2_reg=0.,
-	                weights=None):
-
-    # Initialize model
-    alexnet = tf.keras.Sequential()
-    # Layer 1
-    print("Loaded First layer")
-    alexnet.add(ConvFF2D(96, (11, 11), input_shape=img_shape,
-                         padding='same', kernel_regularizer=l2(l2_reg),
-                         return_sequences=True))
-    alexnet.add(TimeDistributed(BatchNormalization()))
-    alexnet.add(TimeDistributed(Activation('relu')))
-    alexnet.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
-
-    # Layer 2
-    print("Loaded Second layer")
-    alexnet.add(ConvFF2D(256, (5, 5), padding='same',
-                         kernel_regularizer=l2(l2_reg),
-    return_sequences=True))
-    alexnet.add(TimeDistributed(BatchNormalization()))
-    alexnet.add(TimeDistributed(Activation('relu')))
-    alexnet.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
-
-    # Layer 3
-    print("Loaded Third layer")
-    alexnet.add(TimeDistributed(ZeroPadding2D((1, 1))))
-    alexnet.add(ConvFF2D(512, (3, 3), padding='same', return_sequences=True))
-    alexnet.add(TimeDistributed(BatchNormalization()))
-    alexnet.add(TimeDistributed(Activation('relu')))
-    alexnet.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
-
-    # Layer 4
-    print("Loaded Fourth layer")
-    alexnet.add(TimeDistributed(ZeroPadding2D((1, 1))))
-    alexnet.add(ConvFF2D(1024, (3, 3), padding='same', return_sequences=True))
-    alexnet.add(TimeDistributed(BatchNormalization()))
-    alexnet.add(TimeDistributed(Activation('relu')))
-    alexnet.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
-
-    # Layer 5
-    print("Loaded Fifth layer")
-    alexnet.add(TimeDistributed(ZeroPadding2D((1, 1))))
-    alexnet.add(ConvFF2D(1024, (3, 3), padding='same'))
-    alexnet.add(TimeDistributed(BatchNormalization()))
-    alexnet.add(TimeDistributed(Activation('relu')))
-    #alexnet.add(TimeDistributed(MaxPooling2D(pool_size=(2, 2))))
-
-    # Layer 6
-    print("Loaded Sixth layer")
-    alexnet.add(TimeDistributed(Flatten()))
-    alexnet.add(TimeDistributed(Dense(3072)))
-    alexnet.add(TimeDistributed(BatchNormalization()))
-    alexnet.add(TimeDistributed(Activation('relu')))
-    alexnet.add(TimeDistributed(Dropout(0.5)))
-
-    # Layer 7
-    print("Loaded Seventh layer")
-    alexnet.add(TimeDistributed(Dense(4096)))
-    alexnet.add(TimeDistributed(BatchNormalization()))
-    alexnet.add(TimeDistributed(Activation('relu')))
-    alexnet.add(TimeDistributed(Dropout(0.5)))
-
-    # Layer 8
-    print("Loaded Eighth layer")
-    alexnet.add(RNN(FF(n_classes)))
-    alexnet.add(Dense(n_classes))
-    alexnet.add(BatchNormalization())
-    alexnet.add(Activation('softmax'))
-
-    if weights is not None:
-        alexnet.load_weights(weights)
-
-    return alexnet
