@@ -1,3 +1,11 @@
+"""
+Preprocess and implements data loader class
+"""
+import os
+video_dir = r'UCF11_combined\combined_folder'
+videos_list = os.listdir(video_dir)
+classes = list(set([fname[:4] for fname in videos_list]))
+
 import tensorflow as tf
 import random
 import re
@@ -40,26 +48,23 @@ def to_gif(images):
   imageio.mimsave('animation.gif', converted_images, fps=25)
 
 categories = {}
-for video in ucf_videos:
-  category = video[2:-12]
+for video in videos_list:
+  category = video[:4]
   #print(category)
   if category not in categories:
     categories[category] = []
   categories[category].append(video)
-print("Found %d videos in %d categories." % (len(ucf_videos), len(categories)))
+print("Found %d videos in %d categories." % (len(videos_list), len(categories)))
 
-for category, sequences in categories.items():
-  summary = ", ".join(sequences[:2])
-  print("%-20s %4d videos (%s, ...)" % (category, len(sequences), summary))
 
-def create_labels_for_videos(video_list, classes=101): #ucf_101
+def create_labels_for_videos(video_list, classes=11): #ucf_101
     c = 0
     video_dict = {}
     no_of_videos = len(video_list)
     labels = []
     for i in range(no_of_videos):
         name = video_list[i]
-        first_name = name[2:-12]
+        first_name = name[:10]
         
         if first_name not in video_dict:
             video_dict[first_name] = c
@@ -74,8 +79,8 @@ class DataLoader():
 
   def __init__(self, batch_size=4):
 
-    _, labels = create_labels_for_videos(ucf_videos)
-    video_list = videos_lister
+    _, labels = create_labels_for_videos(videos_list)
+    video_list = videos_list
     labels = np.array(labels)
     videos = np.array(video_list)
     idx = np.random.permutation(labels.shape[0])
@@ -99,7 +104,7 @@ class DataLoader():
   
     for i in range(self.idx, offset):
       v_i = self.videos[i]
-      batch_x.append(load_video(fetch_ucf_video(v_i))[:50])
+      batch_x.append(load_video(video_dir + '/' + v_i)[:50])
       batch_y.append(self.labels[i])
 
     self.idx += self.batch_size
@@ -108,4 +113,6 @@ class DataLoader():
     batch_y = np.array(batch_y)
     
     return batch_x, batch_y
-        
+
+  def reset_batch_pointer(self):
+    self.idx = 0
