@@ -69,7 +69,45 @@ Call, not breathed more authority to with some
 jefty malice; thou art dangerous are not news
 Is news Petruch
 ```
-Performance comparison with LSTM
+
+**Performance comparison with LSTM**
+
 ![loss curves](shakespeare/images/loss_plot.png "Training Loss curve")
 
 ### Handwriting generation
+
+Handwriting generation model trained on IAM online handwriting data. The
+architecture used is similar to
+[Generating Sequences With Recurrent Neural Networks](https://arxiv.org/abs/1308.0850)
+
+The data preprocessing and config files are taken from
+[github.com/snowkylin/rnn-handwriting-generation](https://github.com/snowkylin/rnn-handwriting-generation)
+
+Code directory: `handwriting-gen/ff` contains flipflop's and `handwriting-gen/lstm`
+contains LSTM's. Saved models for both are available
+
+**Performance comparison with LSTM**
+
+Flipflop output - 'how are you?'
+
+![Flipflop output - 'how are you?'](handwriting-gen/ff/sample1.svg "Flipflop output - 'how are you?'")
+
+LSTM output - 'how are you?'
+
+![LSTM output - 'how are you?'](handwriting-gen/lstm/sample1.svg "LSTM output - 'how are you?'")
+
+Flipflop output - 'sometime'
+
+![Flipflop output - 'sometime'](handwriting-gen/ff/sample2.svg "Flipflop output - 'sometime'")
+
+LSTM output - 'sometime'
+
+![LSTM output - 'sometime'](handwriting-gen/lstm/sample2.svg "LSTM output - 'sometime'")
+
+Flipflop output - 'Bonjour'
+
+![Flipflop output - 'Bonjour'](handwriting-gen/ff/sample3.svg "Flipflop output - 'Bonjour'")
+
+LSTM output - 'Bonjour'
+
+![LSTM output - 'Bonjour'](handwriting-gen/lstm/sample3.svg "LSTM output - 'Bonjour'")
