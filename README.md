@@ -9,7 +9,7 @@ the generalization capacity of flipflop network
 
 - [Handwriting generation](#handwriting-generation)
 
-- UCF 11/101 action recognition
+- [UCF 11/101 action recognition](#ucf11_action_recognition)
 
 - Sentiment Analysis
 
@@ -111,3 +111,13 @@ Flipflop output - 'Bonjour'
 LSTM output - 'Bonjour'
 
 ![LSTM output - 'Bonjour'](handwriting-gen/lstm/sample3.svg "LSTM output - 'Bonjour'")
+
+
+### UCF11 Action Recognition
+
+Action recognition model trained on UCF 11 dataset. Convolutional Flipflop
+layer is used in flipflop model. Convolutional flipflop is similar to `tensorflow.keras.layers.ConvLSTM2D`.
+
+The classification accuracy of flipflop was 99.3% whereas 98.5% for LSTM
+
+Code dir: `ucf11/`
