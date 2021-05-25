@@ -9,11 +9,11 @@ the generalization capacity of flipflop network
 
 - [Handwriting generation](#handwriting-generation)
 
-- [UCF 11/101 action recognition](#ucf11_action_recognition)
+- [UCF 11/101 action recognition](#ucf11-action-recognition)
 
 - Sentiment Analysis
 
-- Moving square next frame prediction
+- [Moving squares next frame prediction](#moving-squares)
 
 - Signal reconstruction
 
@@ -121,3 +121,16 @@ layer is used in flipflop model. Convolutional flipflop is similar to `tensorflo
 The classification accuracy of flipflop was 99.3% whereas 98.5% for LSTM
 
 Code dir: `ucf11/`
+
+### Moving squares
+
+Example taken from [Keras docs example for ConvLSTM2D]. Model should predict the
+next frame in a movie of moving squares
+
+Sample output of ConvFF and ConvLSTM:
+
+![Actual frame](moving_squares/actual.png "Actual frame")
+
+![Frame predicted by ConvLSTM2D](moving_squares/lstm_pred.png "Frame predicted by ConvLSTM2D")
+
+![Frame predicted by ConvFF2D](moving_squares/ff_pred.png "Frame predicted by ConvFF2D")
