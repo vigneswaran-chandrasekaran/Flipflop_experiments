@@ -11,8 +11,6 @@ the generalization capacity of flipflop network
 
 - [UCF 11/101 action recognition](#ucf11-action-recognition)
 
-- Sentiment Analysis
-
 - [Moving squares next frame prediction](#moving-squares)
 
 - Signal reconstruction
@@ -22,6 +20,8 @@ the generalization capacity of flipflop network
 - Predict next frame in moving MNIST
 
 - Phoneme recognition
+
+- Name origin classification
 
 - Magenta sketch
 
@@ -134,3 +134,14 @@ Sample output of ConvFF and ConvLSTM:
 ![Frame predicted by ConvLSTM2D](moving_squares/lstm_pred.png "Frame predicted by ConvLSTM2D")
 
 ![Frame predicted by ConvFF2D](moving_squares/ff_pred.png "Frame predicted by ConvFF2D")
+
+### Signal reconstruction
+
+Check sequence generation capacity of the model. Two types of signals (of labels `001` and `011`)
+should be generated with MSE as the loss
+
+Sample signal images,
+
+![Signal of type 1](signal_reconstruction/sign1.png "Signal of type 1")
+
+![Signal of type 2](signal_reconstruction/sign2.png "Signal of type 2")
