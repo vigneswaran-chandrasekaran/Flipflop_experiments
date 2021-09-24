@@ -83,7 +83,7 @@ class Model(tf.keras.Model):
 
             rnn_2_input = tf.concat([x[t], rnn_1_reshaped, w], 2)
             rnn_2_out, rnn_2_h = self.rnn2(rnn_2_input, (rnn_2_h))
-            
+
             output_list.append(rnn_2_out)
 
         out_cat = tf.concat(output_list, 1)
